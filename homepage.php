@@ -21,6 +21,27 @@
             font-size: 1rem;
         }
         
+        /* Responsive Logo and School Name */
+        .logo-container {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .logo-text {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                display: inline !important;
+                font-size: 0.7rem;
+            }
+        }
+        
         /* Navigation Styles */
         .top-links {
             font-size: 0.9rem;
@@ -219,7 +240,6 @@
             text-align: center;
             margin: 40px auto;
             padding: 30px;
-            
             background-color: #f8f9fa;
             border-radius: 10px;
         }
@@ -232,7 +252,7 @@
             <div class="header-content d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
                     <img src="images/logo/st-johns-logo.png" alt="School Logo" width="75" class="me-2">
-                    <span class="logo-text d-none d-md-inline">ST. JOHN THE BAPTIST PAROCHIAL SCHOOL</span>
+                    <span class="logo-text d-md-inline logo-container">ST. JOHN THE BAPTIST PAROCHIAL SCHOOL</span>
                 </div>
                 
                 <!-- Desktop Navigation -->
@@ -280,8 +300,8 @@
         </button>
     </div>
 
- <!-- Call to Action -->
- <div class="container call-to-action">
+    <!-- Call to Action -->
+    <div class="container call-to-action">
         <h2>Shape Your Future with Quality Catholic Education</h2>
         <p class="mb-4">St. John The Baptist Parochial School offers a comprehensive learning experience that combines academic excellence, Christian values, and 21st century skills.</p>
         <a href="admission-form.php" class="enroll-btn"><i class="fas fa-graduation-cap me-2"></i>Start Your Journey Today</a>
