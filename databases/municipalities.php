@@ -1,22 +1,30 @@
 <?php
-include 'db_connection.php'; // Include database connection
+// Database connection
+$conn = new mysqli("localhost", "root", "", "enrollment_system");
 
-if (isset($_GET['province_id'])) {
-    $province_id = $_GET['province_id'];
-    $sql = "SELECT * FROM municipalities WHERE province_id = ? ORDER BY municipality_name ASC";
-    
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $province_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $municipalities = array();
-    while ($row = $result->fetch_assoc()) {
-        $municipalities[] = $row;
-    }
-
-    echo json_encode($municipalities); // Return JSON response
-    $stmt->close();
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+// Get province ID from request
+$provinceId = isset($_GET['provinceId']) ? intval($_GET['provinceId']) : 0;
+
+$municipalities = [];
+if ($provinceId > 0) {
+    $sql = "SELECT id, citymunDesc FROM refcitymun WHERE provCode = (SELECT provCode FROM refprovince WHERE id = $provinceId)";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $municipalities[] = $row;
+        }
+    }
+}
+
 $conn->close();
+
+// Return JSON response
+header('Content-Type: application/json');
+echo json_encode($municipalities);
 ?>

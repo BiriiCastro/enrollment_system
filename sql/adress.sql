@@ -1,52 +1,9 @@
 -- Drop existing tables if they exist
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS nationalities;
-DROP TABLE IF EXISTS religions;
-DROP TABLE IF EXISTS school_year;
-DROP TABLE IF EXISTS grade_levels;
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS refregion;
 DROP TABLE IF EXISTS refprovince;
 DROP TABLE IF EXISTS refcitymun;
 DROP TABLE IF EXISTS refbrgy;
-
--- Create the users table
-CREATE TABLE users (
-    user_id int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    user_type ENUM('admin', 'sub-admin', 'cashier') NOT NULL
-);
-
--- Create the nationalities table
-CREATE TABLE nationalities (
-    nationality_id int(11) AUTO_INCREMENT PRIMARY KEY,
-    nationality_name VARCHAR(100) NOT NULL
-);
-
--- Create the religions table
-CREATE TABLE `religions` (
-    `religion_id` int(11) AUTO_INCREMENT PRIMARY KEY,
-    `religion_name` VARCHAR(100) NOT NULL
-);
-
--- Create the school_year table
-CREATE TABLE `school_year` (
-    `school_year_id` int(11) AUTO_INCREMENT PRIMARY KEY,
-    `school_year` VARCHAR(20) UNIQUE NOT NULL,
-    `is_active` TINYINT(1) DEFAULT 0,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create the grade_levels table
-CREATE TABLE grade_levels (
-    grade_level_id int(11) AUTO_INCREMENT PRIMARY KEY,
-    grade_name VARCHAR(255) NOT NULL,
-    department ENUM('Early Education', 'Elementary', 'Junior High School', 'Senior High School') NOT NULL
-);
 
 -- Create refregion table
 CREATE TABLE refregion (
@@ -84,304 +41,6 @@ CREATE TABLE refbrgy (
     provCode VARCHAR(255) DEFAULT NULL,
     citymunCode VARCHAR(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Create the students table
-CREATE TABLE students (
-    student_id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    last_name VARCHAR(100) NOT NULL,
-    first_name VARCHAR(100) NOT NULL,
-    middle_name VARCHAR(100) NOT NULL,
-    suffix VARCHAR(10),
-    region_id INT(11) NOT NULL,
-    province_id INT(11) NOT NULL,
-    municipality_id INT(11) NOT NULL,
-    barangay_id INT(11) NOT NULL,
-    street_address VARCHAR(255) NOT NULL,
-    zip_code VARCHAR(10) NOT NULL,
-    date_of_birth DATE NOT NULL,
-    place_of_birth VARCHAR(100) NOT NULL,
-    gender ENUM('Male', 'Female') NOT NULL,
-    nationality_id INT(11) NOT NULL,
-    religion_id INT(11) NOT NULL,
-    prev_grade_lvl INT(11) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    contact VARCHAR(20) NOT NULL,
-    school_last_attended VARCHAR(255) NOT NULL,
-    school_address VARCHAR(255) NOT NULL,
-    father_name VARCHAR(100) NOT NULL,
-    father_occupation VARCHAR(100) NOT NULL,
-    father_contact_number VARCHAR(20) NOT NULL,
-    mother_name VARCHAR(100) NOT NULL,
-    mother_occupation VARCHAR(100) NOT NULL,
-    mother_contact_number VARCHAR(20) NOT NULL,
-    guardian_name VARCHAR(100) NOT NULL,
-    guardian_relationship VARCHAR(100) NOT NULL,
-    guardian_contact_number VARCHAR(20) NOT NULL,
-    school_year_id INT(11) NOT NULL,
-    type_of_student ENUM('New/Transferee', 'Old') NOT NULL,
-    grade_applying_for INT(11) NOT NULL,
-    academic_track VARCHAR(100) DEFAULT NULL,
-    academic_semester VARCHAR(50) DEFAULT NULL,
-    appointment_date DATE DEFAULT NULL,
-    appointment_time TIME DEFAULT NULL,
-    birth_certificate VARCHAR(255) NOT NULL,
-    report_card VARCHAR(255) NOT NULL,
-    id_picture VARCHAR(255) NOT NULL,
-
-    -- Foreign Key Constraints
-    FOREIGN KEY (region_id) REFERENCES refregion(id) ON DELETE CASCADE,
-    FOREIGN KEY (province_id) REFERENCES refprovince(id) ON DELETE CASCADE,
-    FOREIGN KEY (municipality_id) REFERENCES refcitymun(id) ON DELETE CASCADE,
-    FOREIGN KEY (barangay_id) REFERENCES refbrgy(id) ON DELETE CASCADE,
-    FOREIGN KEY (nationality_id) REFERENCES nationalities(nationality_id) ON DELETE CASCADE,
-    FOREIGN KEY (religion_id) REFERENCES religions(religion_id) ON DELETE CASCADE,
-    FOREIGN KEY (prev_grade_lvl) REFERENCES grade_levels(grade_level_id) ON DELETE CASCADE,
-    FOREIGN KEY (school_year_id) REFERENCES school_year(school_year_id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-INSERT INTO nationalities (nationality_id, nationality_name) VALUES 
-    (1, 'Filipino'),
-    (2, 'Afghan'),
-    (3, 'Albanian'),
-    (4, 'Algerian'),
-    (5, 'Andorran'),
-    (6, 'Angolan'),
-    (7, 'Antiguan and Barbudan'),
-    (8, 'Argentine'),
-    (9, 'Armenian'),
-    (10, 'Australian'),
-    (11, 'Austrian'),
-    (12, 'Azerbaijani'),
-    (13, 'Bahamian'),
-    (14, 'Bahraini'),
-    (15, 'Bangladeshi'),
-    (16, 'Barbadian'),
-    (17, 'Belarusian'),
-    (18, 'Belgian'),
-    (19, 'Belizean'),
-    (20, 'Beninese'),
-    (21, 'Bhutanese'),
-    (22, 'Bolivian'),
-    (23, 'Bosnian'),
-    (24, 'Botswanan'),
-    (25, 'Brazilian'),
-    (26, 'British'),
-    (27, 'Bruneian'),
-    (28, 'Bulgarian'),
-    (29, 'Burkinabe'),
-    (30, 'Burmese'),
-    (31, 'Burundian'),
-    (32, 'Cabo Verdean'),
-    (33, 'Cambodian'),
-    (34, 'Cameroonian'),
-    (35, 'Canadian'),
-    (36, 'Central African'),
-    (37, 'Chadian'),
-    (38, 'Chilean'),
-    (39, 'Chinese'),
-    (40, 'Colombian'),
-    (41, 'Comorian'),
-    (42, 'Congolese (Congo-Brazzaville)'),
-    (43, 'Congolese (Congo-Kinshasa)'),
-    (44, 'Costa Rican'),
-    (45, 'Croatian'),
-    (46, 'Cuban'),
-    (47, 'Cypriot'),
-    (48, 'Czech'),
-    (49, 'Danish'),
-    (50, 'Djiboutian'),
-    (51, 'Dominican'),
-    (52, 'Dutch'),
-    (53, 'East Timorese'),
-    (54, 'Ecuadorean'),
-    (55, 'Egyptian'),
-    (56, 'Emirati'),
-    (57, 'Equatorial Guinean'),
-    (58, 'Eritrean'),
-    (59, 'Estonian'),
-    (60, 'Eswatini'),
-    (61, 'Ethiopian'),
-    (62, 'Fijian'),
-    (63, 'Finnish'),
-    (64, 'French'),
-    (65, 'Gabonese'),
-    (66, 'Gambian'),
-    (67, 'Georgian'),
-    (68, 'German'),
-    (69, 'Ghanaian'),
-    (70, 'Greek'),
-    (71, 'Grenadian'),
-    (72, 'Guatemalan'),
-    (73, 'Guinean'),
-    (74, 'Guinea-Bissauan'),
-    (75, 'Guyanese'),
-    (76, 'Haitian'),
-    (77, 'Honduran'),
-    (78, 'Hungarian'),
-    (79, 'Icelandic'),
-    (80, 'Indian'),
-    (81, 'Indonesian'),
-    (82, 'Iranian'),
-    (83, 'Iraqi'),
-    (84, 'Irish'),
-    (85, 'Israeli'),
-    (86, 'Italian'),
-    (87, 'Ivorian'),
-    (88, 'Jamaican'),
-    (89, 'Japanese'),
-    (90, 'Jordanian'),
-    (91, 'Kazakh'),
-    (92, 'Kenyan'),
-    (93, 'Kiribati'),
-    (94, 'Kuwaiti'),
-    (95, 'Kyrgyz'),
-    (96, 'Lao'),
-    (97, 'Latvian'),
-    (98, 'Lebanese'),
-    (99, 'Lesotho'),
-    (100, 'Liberian'),
-    (101, 'Libyan'),
-    (102, 'Liechtensteiner'),
-    (103, 'Lithuanian'),
-    (104, 'Luxembourger'),
-    (105, 'Malagasy'),
-    (106, 'Malawian'),
-    (107, 'Malaysian'),
-    (108, 'Maldivian'),
-    (109, 'Malian'),
-    (110, 'Maltese'),
-    (111, 'Marshallese'),
-    (112, 'Mauritanian'),
-    (113, 'Mauritian'),
-    (114, 'Mexican'),
-    (115, 'Micronesian'),
-    (116, 'Moldovan'),
-    (117, 'Monacan'),
-    (118, 'Mongolian'),
-    (119, 'Montenegrin'),
-    (120, 'Moroccan'),
-    (121, 'Mozambican'),
-    (122, 'Namibian'),
-    (123, 'Nauruan'),
-    (124, 'Nepalese'),
-    (125, 'New Zealander'),
-    (126, 'Nicaraguan'),
-    (127, 'Nigerien'),
-    (128, 'Nigerian'),
-    (129, 'North Korean'),
-    (130, 'North Macedonian'),
-    (131, 'Norwegian'),
-    (132, 'Omani'),
-    (133, 'Pakistani'),
-    (134, 'Palauan'),
-    (135, 'Palestinian'),
-    (136, 'Panamanian'),
-    (137, 'Papua New Guinean'),
-    (138, 'Paraguayan'),
-    (139, 'Peruvian'),
-    (140, 'Polish'),
-    (141, 'Portuguese'),
-    (142, 'Qatari'),
-    (143, 'Romanian'),
-    (144, 'Russian'),
-    (145, 'Rwandan'),
-    (146, 'Saint Kitts and Nevis'),
-    (147, 'Saint Lucian'),
-    (148, 'Saint Vincentian'),
-    (149, 'Samoan'),
-    (150, 'San Marinese'),
-    (151, 'Sao Tomean'),
-    (152, 'Saudi Arabian'),
-    (153, 'Senegalese'),
-    (154, 'Serbian'),
-    (155, 'Seychellois'),
-    (156, 'Sierra Leonean'),
-    (157, 'Singaporean'),
-    (158, 'Slovak'),
-    (159, 'Slovenian'),
-    (160, 'Solomon Islander'),
-    (161, 'Somali'),
-    (162, 'South African'),
-    (163, 'South Korean'),
-    (164, 'South Sudanese'),
-    (165, 'Spanish'),
-    (166, 'Sri Lankan'),
-    (167, 'Sudanese'),
-    (168, 'Surinamese'),
-    (169, 'Swedish'),
-    (170, 'Swiss'),
-    (171, 'Syrian'),
-    (172, 'Tajik'),
-    (173, 'Tanzanian'),
-    (174, 'Thai'),
-    (175, 'Togolese'),
-    (176, 'Tongan'),
-    (177, 'Trinidadian and Tobagonian'),
-    (178, 'Tunisian'),
-    (179, 'Turkish'),
-    (180, 'Turkmen'),
-    (181, 'Tuvaluan'),
-    (182, 'Ugandan'),
-    (183, 'Ukrainian'),
-    (184, 'United States citizen'),
-    (185, 'Uruguayan'),
-    (186, 'Uzbek'),
-    (187, 'Vanuatuan'),
-    (188, 'Venezuelan'),
-    (189, 'Vietnamese'),
-    (190, 'Yemeni'),
-    (191, 'Zambian'),
-    (192, 'Zimbabwean'),
-    (193, 'Other'); 
-
-
--- Insert sample data into school_year
-INSERT INTO school_year (school_year, is_active) VALUES 
-    ('2023-2024', 1),
-    ('2024-2025', 0),
-    ('2025-2026', 0);
-
--- Insert data into grade_levels table
-INSERT INTO grade_levels (grade_name, department) VALUES
-    ('Prekindergarten', 'Early Education'),
-    ('Kindergarten', 'Early Education'),
-    ('Grade 1', 'Elementary'),
-    ('Grade 2', 'Elementary'),
-    ('Grade 3', 'Elementary'),
-    ('Grade 4', 'Elementary'),
-    ('Grade 5', 'Elementary'),
-    ('Grade 6', 'Elementary'),
-    ('Grade 7', 'Junior High School'),
-    ('Grade 8', 'Junior High School'),
-    ('Grade 9', 'Junior High School'),
-    ('Grade 10', 'Junior High School'),
-    ('Grade 11', 'Senior High School'),
-    ('Grade 12', 'Senior High School');
-
--- Insert the religions from the image
-INSERT INTO `religions` (`religion_id`, `religion_name`) VALUES
-    (1, 'Anglican'),
-    (2, 'Baptist Christian'),
-    (3, 'Born Again Christian'),
-    (4, 'Buddhist'),
-    (5, 'Church of Jesus Christ and Latter Day Saints'),
-    (6, 'Evangelical'),
-    (7, 'Hindu'),
-    (8, 'Iglesia ni Cristo'),
-    (9, "Jehovah's Witnesses"),
-    (10, 'Judaism'),
-    (11, 'Lutheran Church'),
-    (12, 'Members of the Church of God International (MCGI)'),
-    (13, 'Methodist'),
-    (14, 'Mormons'),
-    (15, 'Muslim/Islamic'),
-    (16, 'Protestant'),
-    (17, 'Rizalistas'),
-    (18, 'Roman Catholic'),
-    (19, 'Seventh-Day Adventists'),
-    (20, 'United Church of Christ in the Philippines'),
-    (21, 'Aglipayan'),
-    (22, 'Other');
 
 INSERT INTO `refregion` VALUES ('1', '010000000', 'REGION I (ILOCOS REGION)', '01');
 INSERT INTO `refregion` VALUES ('2', '020000000', 'REGION II (CAGAYAN VALLEY)', '02');
@@ -1020,7 +679,7 @@ INSERT INTO `refcitymun` VALUES ('524', '175302000', 'AGUTAYA', '17', '1753', '1
 INSERT INTO `refcitymun` VALUES ('525', '175303000', 'ARACELI', '17', '1753', '175303');
 INSERT INTO `refcitymun` VALUES ('526', '175304000', 'BALABAC', '17', '1753', '175304');
 INSERT INTO `refcitymun` VALUES ('527', '175305000', 'BATARAZA', '17', '1753', '175305');
-INSERT INTO `refcitymun` VALUES ('528', '175306000', "BROOKE'S POINT", '17', '1753', '175306');
+INSERT INTO `refcitymun` VALUES ('528', '175306000', 'BROOKE\'S POINT', '17', '1753', '175306');
 INSERT INTO `refcitymun` VALUES ('529', '175307000', 'BUSUANGA', '17', '1753', '175307');
 INSERT INTO `refcitymun` VALUES ('530', '175308000', 'CAGAYANCILLO', '17', '1753', '175308');
 INSERT INTO `refcitymun` VALUES ('531', '175309000', 'CORON', '17', '1753', '175309');
@@ -1801,7 +1460,7 @@ INSERT INTO `refcitymun` VALUES ('1305', '124706000', 'MAGPET', '12', '1247', '1
 INSERT INTO `refcitymun` VALUES ('1306', '124707000', 'MAKILALA', '12', '1247', '124707');
 INSERT INTO `refcitymun` VALUES ('1307', '124708000', 'MATALAM', '12', '1247', '124708');
 INSERT INTO `refcitymun` VALUES ('1308', '124709000', 'MIDSAYAP', '12', '1247', '124709');
-INSERT INTO `refcitymun` VALUES ('1309', '124710000', "M'LANG", '12', '1247', '124710');
+INSERT INTO `refcitymun` VALUES ('1309', '124710000', 'M\'LANG', '12', '1247', '124710');
 INSERT INTO `refcitymun` VALUES ('1310', '124711000', 'PIGKAWAYAN', '12', '1247', '124711');
 INSERT INTO `refcitymun` VALUES ('1311', '124712000', 'PIKIT', '12', '1247', '124712');
 INSERT INTO `refcitymun` VALUES ('1312', '124713000', 'PRESIDENT ROXAS', '12', '1247', '124713');
@@ -1818,7 +1477,7 @@ INSERT INTO `refcitymun` VALUES ('1322', '126312000', 'POLOMOLOK', '12', '1263',
 INSERT INTO `refcitymun` VALUES ('1323', '126313000', 'SURALLAH', '12', '1263', '126313');
 INSERT INTO `refcitymun` VALUES ('1324', '126314000', 'TAMPAKAN', '12', '1263', '126314');
 INSERT INTO `refcitymun` VALUES ('1325', '126315000', 'TANTANGAN', '12', '1263', '126315');
-INSERT INTO `refcitymun` VALUES ('1326', '126316000', "T'BOLI", '12', '1263', '126316');
+INSERT INTO `refcitymun` VALUES ('1326', '126316000', 'T\'BOLI', '12', '1263', '126316');
 INSERT INTO `refcitymun` VALUES ('1327', '126317000', 'TUPI', '12', '1263', '126317');
 INSERT INTO `refcitymun` VALUES ('1328', '126318000', 'SANTO NIÑO', '12', '1263', '126318');
 INSERT INTO `refcitymun` VALUES ('1329', '126319000', 'LAKE SEBU', '12', '1263', '126319');
@@ -8066,7 +7725,7 @@ INSERT INTO `refbrgy` VALUES ('5921', '031407010', 'Frances', '03', '0314', '031
 INSERT INTO `refbrgy` VALUES ('5922', '031407011', 'Gatbuca', '03', '0314', '031407');
 INSERT INTO `refbrgy` VALUES ('5923', '031407012', 'Gugo', '03', '0314', '031407');
 INSERT INTO `refbrgy` VALUES ('5924', '031407013', 'Iba Este', '03', '0314', '031407');
-INSERT INTO `refbrgy` VALUES ('5925', '031407014', "Iba O'Este", '03', '0314', '031407');
+INSERT INTO `refbrgy` VALUES ('5925', '031407014', 'Iba O\'Este', '03', '0314', '031407');
 INSERT INTO `refbrgy` VALUES ('5926', '031407015', 'Longos', '03', '0314', '031407');
 INSERT INTO `refbrgy` VALUES ('5927', '031407016', 'Meysulao', '03', '0314', '031407');
 INSERT INTO `refbrgy` VALUES ('5928', '031407017', 'Meyto', '03', '0314', '031407');
@@ -10015,7 +9674,7 @@ INSERT INTO `refbrgy` VALUES ('7870', '036904008', 'Estrada (Calingcuan)', '03',
 INSERT INTO `refbrgy` VALUES ('7871', '036904009', 'Lawy', '03', '0369', '036904');
 INSERT INTO `refbrgy` VALUES ('7872', '036904010', 'Manga', '03', '0369', '036904');
 INSERT INTO `refbrgy` VALUES ('7873', '036904011', 'Manlapig', '03', '0369', '036904');
-INSERT INTO `refbrgy` VALUES ('7874', '036904013', "O'Donnell", '03', '0369', '036904');
+INSERT INTO `refbrgy` VALUES ('7874', '036904013', 'O\'Donnell', '03', '0369', '036904');
 INSERT INTO `refbrgy` VALUES ('7875', '036904016', 'Santa Lucia', '03', '0369', '036904');
 INSERT INTO `refbrgy` VALUES ('7876', '036904017', 'Santa Rita', '03', '0369', '036904');
 INSERT INTO `refbrgy` VALUES ('7877', '036904019', 'Santo Domingo 1st', '03', '0369', '036904');
@@ -16521,7 +16180,7 @@ INSERT INTO `refbrgy` VALUES ('14376', '050506001', 'Bgy. 47 - Arimbay', '05', '
 INSERT INTO `refbrgy` VALUES ('14377', '050506002', 'Bgy. 64 - Bagacay (Bgy. 41 Bagacay)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14378', '050506003', 'Bgy. 48 - Bagong Abre (Bgy. 42)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14379', '050506004', 'Bgy. 66 - Banquerohan (Bgy. 43)', '05', '0505', '050506');
-INSERT INTO `refbrgy` VALUES ('14380', '050506005', "Bgy. 1 - Em's Barrio (Pob.)", '05', '0505', '050506');
+INSERT INTO `refbrgy` VALUES ('14380', '050506005', 'Bgy. 1 - Em\'s Barrio (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14381', '050506007', 'Bgy. 11 - Maoyod Pob. (Bgy. 10 & 11)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14382', '050506008', 'Bgy. 12 - Tula-tula (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14383', '050506009', 'Bgy. 13 - Ilawod West Pob. (Ilawod 1)', '05', '0505', '050506');
@@ -16530,7 +16189,7 @@ INSERT INTO `refbrgy` VALUES ('14385', '050506011', 'Bgy. 15 - Ilawod East Pob. 
 INSERT INTO `refbrgy` VALUES ('14386', '050506012', 'Bgy. 16 - Kawit-East Washington Drive (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14387', '050506013', 'Bgy. 17 - Rizal Sreet., Ilawod (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14388', '050506015', 'Bgy. 19 - Cabagñan', '05', '0505', '050506');
-INSERT INTO `refbrgy` VALUES ('14389', '050506016', "Bgy. 2 - Em's Barrio South (Pob.)", '05', '0505', '050506');
+INSERT INTO `refbrgy` VALUES ('14389', '050506016', 'Bgy. 2 - Em\'s Barrio South (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14390', '050506017', 'Bgy. 18 - Cabagñan West (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14391', '050506018', 'Bgy. 21 - Binanuahan West (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14392', '050506019', 'Bgy. 22 - Binanuahan East (Pob.)', '05', '0505', '050506');
@@ -16541,7 +16200,7 @@ INSERT INTO `refbrgy` VALUES ('14396', '050506023', 'Bgy. 26 - Dinagaan (Pob.)',
 INSERT INTO `refbrgy` VALUES ('14397', '050506024', 'Bgy. 27 - Victory Village South (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14398', '050506025', 'Bgy. 28 - Victory Village North (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14399', '050506026', 'Bgy. 29 - Sabang (Pob.)', '05', '0505', '050506');
-INSERT INTO `refbrgy` VALUES ('14400', '050506027', "Bgy. 3 - Em's Barrio East (Pob.)", '05', '0505', '050506');
+INSERT INTO `refbrgy` VALUES ('14400', '050506027', 'Bgy. 3 - Em\'s Barrio East (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14401', '050506028', 'Bgy. 36 - Kapantawan (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14402', '050506029', 'Bgy. 30 - Pigcale (Pob.)', '05', '0505', '050506');
 INSERT INTO `refbrgy` VALUES ('14403', '050506030', 'Bgy. 31 - Centro-Baybay (Pob.)', '05', '0505', '050506');
@@ -32790,7 +32449,7 @@ INSERT INTO `refbrgy` VALUES ('30645', '098305032', 'Tiayon', '09', '0983', '098
 INSERT INTO `refbrgy` VALUES ('30646', '098305034', 'Timalang', '09', '0983', '098305');
 INSERT INTO `refbrgy` VALUES ('30647', '098305035', 'Tomitom', '09', '0983', '098305');
 INSERT INTO `refbrgy` VALUES ('30648', '098305037', 'Upper Pangi', '09', '0983', '098305');
-INSERT INTO `refbrgy` VALUES ('30649', '098305038', "Veteran's Village (Ruiz)", '09', '0983', '098305');
+INSERT INTO `refbrgy` VALUES ('30649', '098305038', 'Veteran\'s Village (Ruiz)', '09', '0983', '098305');
 INSERT INTO `refbrgy` VALUES ('30650', '098305039', 'Makilas', '09', '0983', '098305');
 INSERT INTO `refbrgy` VALUES ('30651', '098305040', 'Caparan', '09', '0983', '098305');
 INSERT INTO `refbrgy` VALUES ('30652', '098305041', 'Domandan', '09', '0983', '098305');
@@ -36236,7 +35895,7 @@ INSERT INTO `refbrgy` VALUES ('34091', '118603004', 'Culaman', '11', '1186', '11
 INSERT INTO `refbrgy` VALUES ('34092', '118603005', 'Datu Danwata', '11', '1186', '118603');
 INSERT INTO `refbrgy` VALUES ('34093', '118603006', 'Demoloc', '11', '1186', '118603');
 INSERT INTO `refbrgy` VALUES ('34094', '118603007', 'Felis', '11', '1186', '118603');
-INSERT INTO `refbrgy` VALUES ('34095', '118603008', "Fishing Village (Fisherman's Village)", '11', '1186', '118603');
+INSERT INTO `refbrgy` VALUES ('34095', '118603008', 'Fishing Village (Fisherman\'s Village)', '11', '1186', '118603');
 INSERT INTO `refbrgy` VALUES ('34096', '118603010', 'Kibalatong', '11', '1186', '118603');
 INSERT INTO `refbrgy` VALUES ('34097', '118603011', 'Kidalapong', '11', '1186', '118603');
 INSERT INTO `refbrgy` VALUES ('34098', '118603012', 'Kilalag', '11', '1186', '118603');
@@ -37016,7 +36675,7 @@ INSERT INTO `refbrgy` VALUES ('34871', '126316028', 'Lemsnolon', '12', '1263', '
 INSERT INTO `refbrgy` VALUES ('34872', '126316029', 'Malugong', '12', '1263', '126316');
 INSERT INTO `refbrgy` VALUES ('34873', '126316030', 'Mongocayo', '12', '1263', '126316');
 INSERT INTO `refbrgy` VALUES ('34874', '126316031', 'Salacafe', '12', '1263', '126316');
-INSERT INTO `refbrgy` VALUES ('34875', '126316032', "T'bolok", '12', '1263', '126316');
+INSERT INTO `refbrgy` VALUES ('34875', '126316032', 'T\'bolok', '12', '1263', '126316');
 INSERT INTO `refbrgy` VALUES ('34876', '126317001', 'Acmonan', '12', '1263', '126317');
 INSERT INTO `refbrgy` VALUES ('34877', '126317002', 'Bololmala', '12', '1263', '126317');
 INSERT INTO `refbrgy` VALUES ('34878', '126317003', 'Bunao', '12', '1263', '126317');
@@ -37117,7 +36776,7 @@ INSERT INTO `refbrgy` VALUES ('34972', '126503036', 'Saliao', '12', '1265', '126
 INSERT INTO `refbrgy` VALUES ('34973', '126503037', 'Salumping', '12', '1265', '126503');
 INSERT INTO `refbrgy` VALUES ('34974', '126504003', 'Bambad', '12', '1265', '126504');
 INSERT INTO `refbrgy` VALUES ('34975', '126504005', 'Bual', '12', '1265', '126504');
-INSERT INTO `refbrgy` VALUES ('34976', '126504007', "D'Lotilla", '12', '1265', '126504');
+INSERT INTO `refbrgy` VALUES ('34976', '126504007', 'D\'Lotilla', '12', '1265', '126504');
 INSERT INTO `refbrgy` VALUES ('34977', '126504009', 'Dansuli', '12', '1265', '126504');
 INSERT INTO `refbrgy` VALUES ('34978', '126504010', 'Impao', '12', '1265', '126504');
 INSERT INTO `refbrgy` VALUES ('34979', '126504011', 'Kalawag I (Pob.)', '12', '1265', '126504');
@@ -37274,7 +36933,7 @@ INSERT INTO `refbrgy` VALUES ('35129', '126511001', 'Baras', '12', '1265', '1265
 INSERT INTO `refbrgy` VALUES ('35130', '126511002', 'Buenaflor', '12', '1265', '126511');
 INSERT INTO `refbrgy` VALUES ('35131', '126511003', 'Calean', '12', '1265', '126511');
 INSERT INTO `refbrgy` VALUES ('35132', '126511004', 'Carmen', '12', '1265', '126511');
-INSERT INTO `refbrgy` VALUES ('35133', '126511005', "D'Ledesma", '12', '1265', '126511');
+INSERT INTO `refbrgy` VALUES ('35133', '126511005', 'D\'Ledesma', '12', '1265', '126511');
 INSERT INTO `refbrgy` VALUES ('35134', '126511006', 'Gansing', '12', '1265', '126511');
 INSERT INTO `refbrgy` VALUES ('35135', '126511007', 'Kalandagan', '12', '1265', '126511');
 INSERT INTO `refbrgy` VALUES ('35136', '126511008', 'Lower Katungal', '12', '1265', '126511');
@@ -37425,7 +37084,7 @@ INSERT INTO `refbrgy` VALUES ('35280', '128007002', 'Ampon', '12', '1280', '1280
 INSERT INTO `refbrgy` VALUES ('35281', '128007003', 'Atlae', '12', '1280', '128007');
 INSERT INTO `refbrgy` VALUES ('35282', '128007004', 'Banahaw', '12', '1280', '128007');
 INSERT INTO `refbrgy` VALUES ('35283', '128007005', 'Banate', '12', '1280', '128007');
-INSERT INTO `refbrgy` VALUES ('35284', '128007006', "B'Laan", '12', '1280', '128007');
+INSERT INTO `refbrgy` VALUES ('35284', '128007006', 'B\'Laan', '12', '1280', '128007');
 INSERT INTO `refbrgy` VALUES ('35285', '128007007', 'Datal Batong', '12', '1280', '128007');
 INSERT INTO `refbrgy` VALUES ('35286', '128007008', 'Datal Bila', '12', '1280', '128007');
 INSERT INTO `refbrgy` VALUES ('35287', '128007009', 'Datal Tampal', '12', '1280', '128007');
@@ -39516,7 +39175,7 @@ INSERT INTO `refbrgy` VALUES ('37371', '141102008', 'Bayan Park West (Bayan Park
 INSERT INTO `refbrgy` VALUES ('37372', '141102010', 'Bayan Park East', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37373', '141102011', 'Brookspoint', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37374', '141102012', 'Brookside', '14', '1411', '141102');
-INSERT INTO `refbrgy` VALUES ('37375', '141102013', "Cabinet Hill-Teacher's Camp", '14', '1411', '141102');
+INSERT INTO `refbrgy` VALUES ('37375', '141102013', 'Cabinet Hill-Teacher\'s Camp', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37376', '141102016', 'Camp Allen', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37377', '141102017', 'Camp 7', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37378', '141102018', 'Camp 8', '14', '1411', '141102');
@@ -39529,7 +39188,7 @@ INSERT INTO `refbrgy` VALUES ('37384', '141102028', 'Dagsian, Upper', '14', '141
 INSERT INTO `refbrgy` VALUES ('37385', '141102029', 'DPS Area', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37386', '141102030', 'Dizon Subdivision', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37387', '141102034', 'Quirino Hill, East', '14', '1411', '141102');
-INSERT INTO `refbrgy` VALUES ('37388', '141102035', "Engineers' Hill", '14', '1411', '141102');
+INSERT INTO `refbrgy` VALUES ('37388', '141102035', 'Engineers\' Hill', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37389', '141102036', 'Fairview Village', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37390', '141102037', 'Fort del Pilar', '14', '1411', '141102');
 INSERT INTO `refbrgy` VALUES ('37391', '141102038', 'General Luna, Upper', '14', '1411', '141102');
