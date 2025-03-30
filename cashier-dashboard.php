@@ -124,7 +124,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 d-md-block sidebar pt-3">
+            <<div class="col-md-3 col-lg-2 d-md-block sidebar pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a class="nav-link active" href="Cashier.php">

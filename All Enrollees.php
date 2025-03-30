@@ -146,9 +146,9 @@
                             <i class="fas fa-filter me-2"></i>Value
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="valueDropdown">
-                            <li><a class="dropdown-item" href="#">All Values</a></li>
-                            <li><a class="dropdown-item" href="#">Above 1000</a></li>
-                            <li><a class="dropdown-item" href="#">Below 1000</a></li>
+                            <li><a class="dropdown-item" href="#">Academic Year</a></li>
+                            <li><a class="dropdown-item" href="#">2023-2024</a></li>
+                            <li><a class="dropdown-item" href="#">2024-2025</a></li>
                         </ul>
                     </div>
                 </div>
