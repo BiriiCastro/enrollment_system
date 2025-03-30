@@ -7,7 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
+       :root {
             --primary-blue: #3498db;
             --sidebar-bg: #f8f9fa;
             --sidebar-active-bg: #f0f0f0;
@@ -55,6 +55,9 @@
         .main-content {
             padding: 20px;
         }
+        .search-container {
+            margin-bottom: 20px;
+        }
         .table {
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             border-radius: 8px;
@@ -66,14 +69,29 @@
         .table-hover tbody tr:hover {
             background-color: rgba(52, 152, 219, 0.05);
         }
-        .dropdown-toggle {
+        .review-btn {
+            background-color: #2ecc71;
+            border-color: #2ecc71;
             transition: all 0.3s ease;
         }
-        .dropdown-toggle:hover {
+        .review-btn:hover {
             transform: scale(1.05);
+            background-color: #27ae60;
         }
         .empty-table-message {
             color: #6c757d;
+        }
+        .input-group .form-control:focus,
+        .input-group .btn:focus {
+            box-shadow: none;
+            border-color: var(--primary-blue);
+        }
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
         }
         @media (max-width: 768px) {
             .sidebar {
@@ -81,22 +99,22 @@
             }
         }
     </style>
+    </style>
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="logo.jpg" alt="SJBPS Logo" width="40" height="40" class="rounded-circle">
-                WELCOME! SJBPS Admin
-            </a>
+            <div class="d-flex align-items-center">
+                <img src="images/logo/st-johns-logo.png" alt="Profile" class="logo-image me-2">
+                <a class="navbar-brand" href="#" id="adminWelcomeMessage">WELCOME! Admin</a>
+            </div>
             <div class="ms-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home me-2"></i>Dashboard</a>
+                        <a class="nav-link" href="admin-dashboard.php"><i class="fas fa-home me-2"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
+                        <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -228,6 +246,24 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Fetch the logo from the database and display it in the navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("databases/fetch_logo.php")
+                .then(response => response.json())
+                .then(data => {
+                    let navLogo = document.getElementById("navLogo");
+                    if (data.status === "success" && data.image) {
+                        navLogo.src = data.image; // Load logo from database
+                    } else {
+                        console.error("Error:", data.message);
+                        navLogo.src = "assets/homepage_images/logo/placeholder.png"; // Default placeholder
+                    }
+                })
+                .catch(error => console.error("Error fetching logo:", error));
+        });
+    </script>
+
     <!-- Date Filter Script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {

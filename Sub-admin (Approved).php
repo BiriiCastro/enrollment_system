@@ -81,17 +81,17 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="logo.jpg" alt="SJBPS Logo" width="40" height="40" class="rounded-circle">
-                WELCOME! SJBPS Admin
-            </a>
+            <div class="d-flex align-items-center">
+                <img src="images/logo/st-johns-logo.png" alt="Profile" class="logo-image me-2">
+                <a class="navbar-brand" href="#" id="adminWelcomeMessage">WELCOME! Sub-Admin</a>
+            </div>
             <div class="ms-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home me-2"></i>Dashboard</a>
+                        <a class="nav-link" href="admin-dashboard.php"><i class="fas fa-home me-2"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
+                        <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -182,5 +182,24 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Fetch the logo from the database and display it in the navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("databases/fetch_logo.php")
+                .then(response => response.json())
+                .then(data => {
+                    let navLogo = document.getElementById("navLogo");
+                    if (data.status === "success" && data.image) {
+                        navLogo.src = data.image; // Load logo from database
+                    } else {
+                        console.error("Error:", data.message);
+                        navLogo.src = "assets/homepage_images/logo/placeholder.png"; // Default placeholder
+                    }
+                })
+                .catch(error => console.error("Error fetching logo:", error));
+        });
+    </script>
+
 </body>
 </html>

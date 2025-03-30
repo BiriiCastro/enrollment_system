@@ -24,19 +24,6 @@
             background-color: var(--primary-blue);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .profile-image {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid white;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #3498db;
-            font-weight: bold;
-        }
         .sidebar {
             background-color: var(--sidebar-bg);
             min-height: calc(100vh - 56px);
@@ -58,33 +45,57 @@
             color: var(--primary-blue);
         }
         .card-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 15px;
             margin-bottom: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card-container:hover {
+            transform: scale(1.03);
+        }
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #555;
         }
         .metric-card {
             color: white;
-            padding: 15px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 0 0 5px 5px;
+            border-radius: 6px;
         }
         .metric-card.red { background-color: #e74c3c; }
         .metric-card.orange { background-color: #f39c12; }
         .metric-card.green { background-color: #2ecc71; }
         .metric-card.blue { background-color: #3498db; }
         .metric-value {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: bold;
         }
         .chart-container {
-            height: 300px;
-            border: 1px dashed #ddd;
+            background-color: white;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -93,16 +104,16 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <div class="d-flex align-items-center">
-            <img src="images/logo/st-johns-logo.png" alt="Profile" class="logo-image me-2">
-                <a class="navbar-brand" href="#">WELCOME! SJBPS Sub-Admin</a>
+                <img src="images/logo/st-johns-logo.png" alt="Profile" class="logo-image me-2">
+                <a class="navbar-brand" href="#" id="adminWelcomeMessage">WELCOME! Sub-Admin</a>
             </div>
             <div class="ms-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-home me-2"></i>Dashboard</a>
+                        <a class="nav-link" href="admin-dashboard.php"><i class="fas fa-home me-2"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
+                        <a class="nav-link" href="logout.php"><i class="fas fa-sign-out-alt me-2"></i>Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -222,5 +233,22 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Fetch the logo from the database and display it in the navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("databases/fetch_logo.php")
+                .then(response => response.json())
+                .then(data => {
+                    let navLogo = document.getElementById("navLogo");
+                    if (data.status === "success" && data.image) {
+                        navLogo.src = data.image; // Load logo from database
+                    } else {
+                        console.error("Error:", data.message);
+                        navLogo.src = "assets/homepage_images/logo/placeholder.png"; // Default placeholder
+                    }
+                })
+                .catch(error => console.error("Error fetching logo:", error));
+        });
+    </script>
 </body>
 </html>

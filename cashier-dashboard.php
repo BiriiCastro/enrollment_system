@@ -104,10 +104,10 @@
     <!-- Top Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <div class="d-flex align-items-center">
-                <img src="logo.jpg" alt="Profile" class="profile-image me-2">
-                <a class="navbar-brand" href="#">WELCOME! SJBPS Cashier</a>
-            </div>
+            <a class="navbar-brand" href="#">
+                <img src="logo.jpg" alt="SJBPS Logo" width="40" height="40" class="rounded-circle">
+                WELCOME! SJBPS Cashier
+            </a>
             <div class="ms-auto">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -233,5 +233,23 @@
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Fetch the logo from the database and display it in the navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("databases/fetch_logo.php")
+                .then(response => response.json())
+                .then(data => {
+                    let navLogo = document.getElementById("navLogo");
+                    if (data.status === "success" && data.image) {
+                        navLogo.src = data.image; // Load logo from database
+                    } else {
+                        console.error("Error:", data.message);
+                        navLogo.src = "assets/homepage_images/logo/placeholder.png"; // Default placeholder
+                    }
+                })
+                .catch(error => console.error("Error fetching logo:", error));
+        });
+    </script>
 </body>
 </html>
