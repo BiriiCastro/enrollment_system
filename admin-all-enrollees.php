@@ -17,6 +17,13 @@
             background-color: #f4f6f9;
             font-family: 'Arial', sans-serif;
         }
+        .logo-image {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+        }
         .navbar {
             background-color: var(--primary-blue);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
