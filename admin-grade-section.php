@@ -164,13 +164,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="admin-payment-transactions.php">
+                        <a class="nav-link" href="#">
                             <i class="fas fa-money-check-alt me-2"></i>Payment Transactions
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="admin-all-enrollees.php">
+                        <a class="nav-link" href="admin-all-enrollees.php">
                             <i class="fas fa-users me-2"></i>All Enrollees
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="admin-grade-section.php">
+                            <i class="fas fa-users me-2"></i>Grade-Section
                         </a>
                     </li>
                     <li class="nav-item">
@@ -179,13 +184,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="admin-users.php">
+                        <a class="nav-link" href="#">
                             <i class="fas fa-user-cog me-2"></i>Users
                         </a>
                     </li>
                 </ul>
             </div>
-      
+    
             <!-- Main Content -->
             <div class="col-md-9 col-lg-10 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">

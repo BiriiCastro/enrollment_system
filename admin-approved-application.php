@@ -182,6 +182,11 @@ $adminLastName = $_SESSION['last_name'];
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="admin-grade-section.php">
+                            <i class="fas fa-users me-2"></i>Grade-Section
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="admin-homepage-editor.php">
                             <i class="fas fa-edit me-2"></i>Home Page Editor
                         </a>
