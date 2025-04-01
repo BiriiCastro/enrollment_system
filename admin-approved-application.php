@@ -199,38 +199,46 @@ $adminLastName = $_SESSION['last_name'];
                 </ul>
             </div>
         
-            <!-- Main Content -->
-            <div class="col-md-9 col-lg-10 main-content">
+<!-- Main Content -->
+<div class="col-md-9 col-lg-10 main-content">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h4 class="mb-0">Approved Applications</h4>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="valueDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-peso-sign me-2"></i>Value
+                    <h4 class="mb-0">Applications for Review</h4>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#filterModal">
+                        <i class="fas fa-filter me-2"></i>Advanced Filters
+                    </button>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-container d-flex justify-content-end">
+                    <div class="input-group" style="max-width: 300px;">
+                        <input type="text" id="searchInput" class="form-control" placeholder="Search applications" aria-label="Search">
+                        <button class="btn btn-outline-secondary" type="button" id="clearBtn">
+                            <i class="fas fa-times"></i>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="valueDropdown">
-                            <li><a class="dropdown-item" href="#">All Values</a></li>
-                            <li><a class="dropdown-item" href="#">Above 1000</a></li>
-                            <li><a class="dropdown-item" href="#">Below 1000</a></li>
-                        </ul>
                     </div>
                 </div>
 
+                
                 <!-- Table -->
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Student Number</th>
-                                <th>Grade Level</th>
-                                <th>Amount</th>
-                                <th>Status</th>
+                                <th>ID</th>
+                                <th>Student Name</th>
+                                <th>Applying For</th>
+                                <th>School Year</th>
+                                <th>Enrollment Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Table rows will be dynamically populated -->
-                            <tr class="text-center">
-                                <td colspan="5">No data available</td>
+                            <!-- JavaScript will populate this section -->
+                            <tr>
+                                <td colspan="6" class="text-center py-5 empty-table-message">
+                                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                                    <p>No applications for review at this time</p>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -239,6 +247,216 @@ $adminLastName = $_SESSION['last_name'];
         </div>
     </div>
 
+    <!-- Advanced Filter Modal -->
+    <div class="modal fade" id="filterModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Advanced Filters</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Enrollment Type Filter -->
+                    <div class="mb-3">
+                        <label class="form-label">Enrollment Type</label>
+                        <select id="enrollmentTypeFilter" class="form-select">
+                            <option value="">All Types</option>
+                            <option value="old">Old Student</option>
+                            <option value="new/transferee">New/Transferee Student</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Grade Applying For Filter -->
+                    <div class="mb-3">
+                        <label class="form-label">Grade Applying For</label>
+                        <select id="gradeApplyingFilter" class="form-select">
+                            <option value="">All Grade Levels</option>
+                            <option value="Prekindergarten">Prekindergarten</option>
+                            <option value="Kindergarten">Kindergarten</option>
+                            <option value="Grade 1">Grade 1</option>
+                            <option value="Grade 2">Grade 2</option>
+                            <option value="Grade 3">Grade 3</option>
+                            <option value="Grade 4">Grade 4</option>
+                            <option value="Grade 5">Grade 5</option>
+                            <option value="Grade 6">Grade 6</option>
+                            <option value="Grade 7">Grade 7</option>
+                            <option value="Grade 8">Grade 8</option>
+                            <option value="Grade 9">Grade 9</option>
+                            <option value="Grade 10">Grade 10</option>
+                            <option value="Grade 11">Grade 11</option>
+                            <option value="Grade 12">Grade 12</option>
+                        </select>
+                    </div>
+                    
+                    <!-- School Year Filter -->
+                    <div class="mb-3">
+                        <label class="form-label">School Year</label>
+                        <select id="schoolYearFilter" class="form-select">
+                            <option value="">All School Years</option>
+                            <option value="2023-2024">2023-2024</option>
+                            <option value="2024-2025">2024-2025</option>
+                            <option value="2025-2026">2025-2026</option>
+                            <!-- Add more school years as needed -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" id="applyFiltersBtn" class="btn btn-primary">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <!-- Advance Filter Method -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchEnrollments();
+
+            // Get filter elements
+            const gradeApplyingFilter = document.getElementById("gradeApplyingFilter");
+            const applyFiltersBtn = document.getElementById("applyFiltersBtn");
+
+            // Apply filters when the button is clicked
+            applyFiltersBtn.addEventListener("click", () => {
+                filterTable();
+                // Close modal after applying filters
+                let filterModalEl = document.getElementById("filterModal");
+                let filterModal = bootstrap.Modal.getInstance(filterModalEl);
+                filterModal.hide();
+
+            });
+            
+            // Search Method
+            // Get search input element
+            const searchInput = document.getElementById("searchInput");
+            const clearBtn = document.getElementById("clearBtn");
+
+            // Attach event listener to the search input
+            searchInput.addEventListener("keyup", function () {
+                searchTable(this.value.toLowerCase());
+            });
+
+            // Clear search input when the clear button is clicked
+            clearBtn.addEventListener("click", function () {
+                searchInput.value = "";
+                searchTable(""); // Reset the table view
+            });
+
+            document.querySelector("tbody").addEventListener("click", function (event) {
+                if (event.target.classList.contains("review-btn")) {
+                    let studentId = event.target.getAttribute("data-id");
+                    fetchStudentDetails(studentId);
+                }
+            });
+        });
+
+        // Fetch enrollments from the database
+        function fetchEnrollments() {
+            fetch("databases/fetch_approved_applications.php")
+                .then(response => response.json())
+                .then(data => {
+                    let tbody = document.querySelector("tbody");
+                    tbody.innerHTML = ""; // Clear existing rows
+
+                    if (data.length === 0) {
+                        tbody.innerHTML = `
+                            <tr>
+                                <td colspan="7" class="text-center py-5 empty-table-message">
+                                    <i class="fas fa-inbox fa-3x mb-3"></i>
+                                    <p>No applications for review at this time</p>
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        data.forEach(student => {
+                            let row = document.createElement("tr");
+                            row.classList.add("student-row");
+                            row.setAttribute("data-id", student.student_id);
+
+                            row.innerHTML = `
+                                <td>${student.student_id}</td>
+                                <td>${student.student_name}</td>
+                                <td>${student.grade_applying_name}</td>
+                                <td>${student.school_year}</td>
+                                <td>${student.enrollment_status}</td>
+                                <td>
+                                    <form action="admin-view-form.php" method="POST" style="display:inline;">
+                                        <input type="hidden" name="student_id" value="${student.student_id}">
+                                        <button type="submit" class="btn btn-primary btn-sm">Review</button>
+                                    </form>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+
+                    }
+                })
+                .catch(error => console.error("Error fetching data:", error));
+        }
+
+        // Search Method
+        function searchTable(query) {
+            const rows = document.querySelectorAll("tbody .student-row");
+
+            rows.forEach(row => {
+                const studentName = row.children[1].textContent.toLowerCase(); // Name column
+                const applyingGrade = row.children[2].textContent.toLowerCase(); // Applying Grade column
+                const schoolYear = row.children[3].textContent.toLowerCase(); // School Year column
+
+                // Check if any column contains the search query
+                if (studentName.includes(query) || studentType.includes(query) || prevGrade.includes(query) || applyingGrade.includes(query) || schoolYear.includes(query)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+        }
+
+        
+        document.getElementById("applyFiltersBtn").addEventListener("click", function() {
+            filterTable();  // Call the filterTable function when the "Apply Filters" button is clicked
+            $('#filterModal').modal('hide');  // Close the modal after applying filters
+        });
+
+        // Filter Method
+        function filterTable() {
+            let enrollmentType = document.getElementById("enrollmentTypeFilter").value.toLowerCase();
+            let gradeApplying = document.getElementById("gradeApplyingFilter").value.toLowerCase();
+            let schoolYear = document.getElementById("schoolYearFilter").value.toLowerCase();
+
+            document.querySelectorAll("tbody tr").forEach(row => {
+                let typeMatch = enrollmentType === "" || row.innerHTML.toLowerCase().includes(enrollmentType);
+                let gradeMatch = gradeApplying === "" || row.innerHTML.toLowerCase().includes(gradeApplying);
+                let yearMatch = schoolYear === "" || row.innerHTML.toLowerCase().includes(schoolYear);
+
+                row.style.display = typeMatch && gradeMatch && yearMatch ? "" : "none";
+            });
+        }
+
+        function searchTable(query) {
+            document.querySelectorAll("tbody tr").forEach(row => {
+                let text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? "" : "none";
+            });
+        }
+
+
+
+
+
+        
+
+
+        
+
+
+
+
+    </script>
 </body>
 </html>

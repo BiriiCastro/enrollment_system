@@ -463,53 +463,44 @@ $adminLastName = $_SESSION['last_name'];
                         <div class="form-section">
                             <h5 class="section-title"><i class="fas fa-user me-2"></i>General Information</h5>
                             <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Last Name <span class="text-danger">*</span></label>
-                                        <div class="form-control-static" id="displayLastName"></div>
+                                <div class="col-md-5 pt-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                            <div class="form-control-static" id="displayLastName"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Middle Name <span class="text-danger">*</span></label>
+                                            <div class="form-control-static" id="displayMiddleName">no data</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">First Name <span class="text-danger">*</span></label>
-                                        <div class="form-control-static" id="displayFirstName"></div>
+                                <div class="col-md-5 pt-3">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                            <div class="form-control-static" id="displayFirstName"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">Suffix</label>
+                                            <div class="form-control-static" id="displaySuffix">no data</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Middle Name <span class="text-danger">*</span></label>
-                                        <div class="form-control-static" id="displayMiddleName">no data</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Suffix</label>
-                                        <div class="form-control-static" id="displaySuffix">no data</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Province <span class="text-danger">*</span></label>
-                                        <div class="form-control-static" id="displayProvince">no data</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Municipality <span class="text-danger">*</span></label>
-                                        <div class="form-control-static" id="displayMunicipality">no data</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">Barangay <span class="text-danger">*</span></label>
-                                        <div class="form-control-static" id="displayBarangay">no data</div>
+                                <div class="col-md-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label">ID Picture <span class="text-danger">*</span></label>
+                                            <img id="displayIdPicture" src="<?= htmlspecialchars($student['id_picture']) ?>" alt="ID Picture" style="width: 100%; height: auto; border: 1px solid #ccc; border-radius: 6px; object-fit: cover;">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -520,19 +511,49 @@ $adminLastName = $_SESSION['last_name'];
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Barangay <span class="text-danger">*</span></label>
+                                        <div class="form-control-static" id="displayBarangay">no data</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Municipality <span class="text-danger">*</span></label>
+                                        <div class="form-control-static" id="displayMunicipality">no data</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Province <span class="text-danger">*</span></label>
+                                        <div class="form-control-static" id="displayProvince">no data</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label class="form-label">Region <span class="text-danger">*</span></label>
+                                        <div class="form-control-static" id="displayRegion">no data</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">ZIP Code <span class="text-danger">*</span></label>
                                         <div class="form-control-static" id="displayZipCode">no data</div>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Date of Birth <span class="text-danger">*</span></label>
                                         <div class="form-control-static" id="displayDateOfBirth">no data</div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <div class="form-group">
                                         <label class="form-label">Place of Birth <span class="text-danger">*</span></label>
                                         <div class="form-control-static" id="displayPlaceOfBirth">no data</div>
@@ -716,91 +737,85 @@ $adminLastName = $_SESSION['last_name'];
                                 </div>
                             </div>
                             
-                            <!-- Document Buttons -->
-                        <!-- Document Buttons -->
-                        <div class="row mb-3">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Birth Certificate <span class="text-danger">*</span></label>
-                                    <button class="btn btn-view" data-bs-toggle="modal" data-bs-target="#birthCertModal"
-                                        data-pdf="<?= htmlspecialchars($student['birth_certificate']) ?>">
-                                        <i class="fas fa-eye me-1"></i> View
-                                    </button>
+                            <!-- Document Thumbnails -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Birth Certificate <span class="text-danger">*</span></label>
+                                        <img src="path/to/birth_certificate_thumbnail.jpg" alt="Birth Certificate" class="img-thumbnail preview-thumbnail" 
+                                            data-bs-toggle="modal" data-bs-target="#birthCertModal" 
+                                            data-pdf="<?= htmlspecialchars($student['birth_certificate']) ?>">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Report Card <span class="text-danger">*</span></label>
+                                        <img src="path/to/report_card_thumbnail.jpg" alt="Report Card" class="img-thumbnail preview-thumbnail" 
+                                            data-bs-toggle="modal" data-bs-target="#reportCardModal" 
+                                            data-pdf="<?= htmlspecialchars($student['report_card']) ?>">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">Report Card <span class="text-danger">*</span></label>
-                                    <button class="btn btn-view" data-bs-toggle="modal" data-bs-target="#reportCardModal"
-                                        data-pdf="<?= htmlspecialchars($student['report_card']) ?>">
-                                        <i class="fas fa-eye me-1"></i> View
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="form-label">2x2 Picture <span class="text-danger">*</span></label>
-                                    <button class="btn btn-view" data-bs-toggle="modal" data-bs-target="#idPictureModal"
-                                        data-img="<?= htmlspecialchars($student['id_picture']) ?>">
-                                        <i class="fas fa-eye me-1"></i> View
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Birth Certificate Modal -->
-                        <div class="modal fade" id="birthCertModal" tabindex="-1" aria-labelledby="birthCertModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="birthCertModalLabel">Birth Certificate</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <iframe id="birthCertViewer" src="" width="100%" height="500px" style="border: none;"></iframe>
+                            <!-- Birth Certificate Modal -->
+                            <div class="modal fade" id="birthCertModal" tabindex="-1" aria-labelledby="birthCertModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="birthCertModalLabel">Birth Certificate</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <iframe id="birthCertViewer" src="" width="100%" height="500px" style="border: none;"></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Report Card Modal -->
-                        <div class="modal fade" id="reportCardModal" tabindex="-1" aria-labelledby="reportCardModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="reportCardModalLabel">Report Card</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <iframe id="reportCardViewer" src="" width="100%" height="500px" style="border: none;"></iframe>
+                            <!-- Report Card Modal -->
+                            <div class="modal fade" id="reportCardModal" tabindex="-1" aria-labelledby="reportCardModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="reportCardModalLabel">Report Card</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <iframe id="reportCardViewer" src="" width="100%" height="500px" style="border: none;"></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- ID Picture Modal (2x2 Square Image) -->
-                        <div class="modal fade" id="idPictureModal" tabindex="-1" aria-labelledby="idPictureModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content text-center">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="idPictureModalLabel">2x2 ID Picture</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img id="idPictureViewer" src="" alt="ID Picture" style="width: 150px; height: 150px; object-fit: cover; border: 2px solid #ccc;">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            <!-- JavaScript to Load Documents Dynamically -->
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    document.querySelectorAll('.preview-thumbnail').forEach(img => {
+                                        img.addEventListener('click', function () {
+                                            let pdfUrl = this.getAttribute('data-pdf');
+                                            let targetModal = this.getAttribute('data-bs-target');
+                                            
+                                            if (targetModal === '#birthCertModal') {
+                                                document.getElementById('birthCertViewer').src = pdfUrl;
+                                            } else if (targetModal === '#reportCardModal') {
+                                                document.getElementById('reportCardViewer').src = pdfUrl;
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+
                         
-                        <!-- Action Buttons -->
-                        <div class="action-buttons">
-                            <button type="button" class="btn btn-decline" id="declineBtn" data-bs-toggle="modal" data-bs-target="#declineModal">
-                                <i class="fas fa-times-circle me-1"></i> Decline
-                            </button>
-                            <button type="button" class="btn btn-approve" id="approveBtn" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                                <i class="fas fa-check-circle me-1"></i> Approve
-                            </button>
+                            <!-- Action Buttons -->
+                        <div class="p-5">
+                            <div class="action-buttons">
+                                <button type="button" class="btn btn-decline" id="declineBtn" data-bs-toggle="modal" data-bs-target="#declineModal">
+                                    <i class="fas fa-times-circle me-1"></i> Decline
+                                </button>
+                                <button type="button" class="btn btn-approve" id="approveBtn" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                    <i class="fas fa-check-circle me-1"></i> Approve
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -895,6 +910,7 @@ $adminLastName = $_SESSION['last_name'];
         document.getElementById("displayFirstName").textContent = "<?= htmlspecialchars($student['first_name']) ?>";
         document.getElementById("displayMiddleName").textContent = "<?= htmlspecialchars($student['middle_name']) ?>";
         document.getElementById("displaySuffix").textContent = "<?= htmlspecialchars($student['suffix']) ?>";
+        document.getElementById("displayRegion").textContent = "<?= htmlspecialchars($student['region_name']) ?>";
         document.getElementById("displayProvince").textContent = "<?= htmlspecialchars($student['province_name']) ?>";
         document.getElementById("displayMunicipality").textContent = "<?= htmlspecialchars($student['municipality_name']) ?>";
         document.getElementById("displayBarangay").textContent = "<?= htmlspecialchars($student['barangay_name']) ?>";
@@ -926,35 +942,6 @@ $adminLastName = $_SESSION['last_name'];
         document.getElementById("displayAppointmentDate").textContent = "<?= htmlspecialchars($student['appointment_date']) ?>";
         document.getElementById("displayAppointmentTime").textContent = "<?= htmlspecialchars($student['appointment_time']) ?>";
 
-    </script>
-
-    <!-- JavaScript to Load Documents Dynamically -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Birth Certificate
-        var birthCertModal = document.getElementById('birthCertModal');
-        birthCertModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            var pdfUrl = button.getAttribute('data-pdf');
-            document.getElementById('birthCertViewer').src = pdfUrl;
-        });
-
-        // Report Card
-        var reportCardModal = document.getElementById('reportCardModal');
-        reportCardModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            var pdfUrl = button.getAttribute('data-pdf');
-            document.getElementById('reportCardViewer').src = pdfUrl;
-        });
-
-        // ID Picture (2x2 Square)
-        var idPictureModal = document.getElementById('idPictureModal');
-        idPictureModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            var imgUrl = button.getAttribute('data-img');
-            document.getElementById('idPictureViewer').src = imgUrl;
-        });
-    });
     </script>
 
     <!-- JavaScript for Approve Actions -->

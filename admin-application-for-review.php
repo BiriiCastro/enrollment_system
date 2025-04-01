@@ -263,7 +263,7 @@ $adminLastName = $_SESSION['last_name'];
     </div>
 
     <!-- Advanced Filter Modal -->
-    <d class="modal fade" id="filterModal" tabindex="-1">
+    <div class="modal fade" id="filterModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -427,7 +427,7 @@ $adminLastName = $_SESSION['last_name'];
                                 <td>${student.school_year}</td>
                                 <td>${student.enrollment_status}</td>
                                 <td>
-                                    <form action="admin-view-form.php" method="POST" style="display:inline;">
+                                    <form action="admin-review-form.php" method="POST" style="display:inline;">
                                         <input type="hidden" name="student_id" value="${student.student_id}">
                                         <button type="submit" class="btn btn-primary btn-sm">Review</button>
                                     </form>
